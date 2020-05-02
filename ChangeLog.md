@@ -1,6 +1,9 @@
 ### milestone - 1
 minimum viable app
 
+#### 1.05
+- Add a status api end point that gets status from ticket
+
 #### 1.04
 - create a worker thread that finds pending items in db, and calls watermaker every x ticks
 
