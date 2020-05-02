@@ -1,6 +1,9 @@
 ### milestone - 1
 minimum viable app
 
+#### 1.04
+- create a worker thread that finds pending items in db, and calls watermaker every x ticks
+
 #### 1.0.3
 - modify watermarker to accept uuid, fetch from db, watermark and reinsert
 
