@@ -10,5 +10,8 @@ MongoClient.connect((err, client)=>{
 module.exports = {
   save: (document)=>{
     return db.insertOne(document);
-  }
+  },
+  get: (ticket) => {
+    return db.findOne({ "status.ticket": ticket })
+},
 }
