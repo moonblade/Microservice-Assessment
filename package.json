@@ -5,5 +5,8 @@
   "main": "index.js",
   "repository": "git@github.com:moonblade/watermark.git",
   "author": "moonblade <moonblade168@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
