@@ -14,7 +14,7 @@ app.post('/watermark', (req, res) => {
         string: 'pending'
     }
     db.save(document).then(()=>{
-        res.json(document.status.ticket);
+        res.send(document.status.ticket);
     }).catch(error=>{
         res.status(500).send(error);
     })

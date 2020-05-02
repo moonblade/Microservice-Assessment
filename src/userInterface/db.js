@@ -1,8 +1,8 @@
-const config = require('./config')
+const config = require('../common/dbConfig')
 var MongoClient = require('mongodb').MongoClient(config.mongoUri)
 var db = null;
 MongoClient.connect((err, client)=>{
-  if (err) 
+  if (err)
     throw err
   db = client.db().collection('documents')
 });
