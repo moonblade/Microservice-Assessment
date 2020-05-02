@@ -1,0 +1,9 @@
+{
+  "name": "assessment",
+  "version": "1.0.0",
+  "description": "watermark microservice architechture project",
+  "main": "index.js",
+  "repository": "git@github.com:moonblade/watermark.git",
+  "author": "moonblade <moonblade168@gmail.com>",
+  "license": "MIT"
+}
