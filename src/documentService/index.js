@@ -43,7 +43,21 @@ documentService.addService(documentProto.DocumentService.service, {
       callback(error);
     });
   },
-
+  update: (call, callback) => {
+    const document = JSON.parse(call.request.document);
+    const { ticket } = call.request;
+    debug(`Update document ${ticket}`);
+    db.update(ticket, document).then((result) => {
+      if (!result) return Promise.reject({ status: 500, message: 'Could not insert document' });
+      debug('Updated document');
+      callback(null, {});
+      return null;
+    }).catch((error) => {
+      debug('Update failed with error');
+      debug(error);
+      callback(error);
+    });
+  },
 });
 
 documentService.bind(config.docService, grpc.ServerCredentials.createInsecure());

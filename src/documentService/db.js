@@ -15,4 +15,11 @@ MongoClient.connect((err, client) => {
 module.exports = {
   insert: (document) => collection.insertOne(document),
   get: (ticket) => collection.findOne({ ticket }),
+  update: (ticket, document) => collection.replaceOne({
+    ticket,
+  }, {
+    document,
+  }, {
+    upsert: true,
+  }),
 };

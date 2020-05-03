@@ -4,6 +4,7 @@ service DocumentService {
     rpc Insert (Document) returns (Empty) {}
     // only ticket input
     rpc Get (Document) returns (Document) {}
+    rpc Update (Document) returns (Empty) {}
 }
 
 message Empty {}
