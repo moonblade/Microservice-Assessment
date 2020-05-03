@@ -1,4 +1,6 @@
 ### milestone 1.1
+![v1.0](https://github.com/moonblade/watermark/raw/dev/assets/archv1.1.png)
+
 making microservices
 
 todo :
@@ -6,6 +8,8 @@ todo :
     - document and status seperated out
 - worker should get work from pubsub queue and not query db
 - setup a logging framework
+
+done:
 - use grpc communication
 
 ### milestone - 1
