@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const debug = require('debug')('assess-userInterface');
 
 const app = express();
 const port = 3001;
@@ -14,11 +15,13 @@ app.post('/watermark', (req, res) => {
   // status can be 'created', 'pending', 'completed'
   const ticket = uuid();
   document.ticket = ticket;
+  debug('Create new document');
   publish({
     ticket,
     status: 'created',
   });
   db.insert().sendMessage({ document: JSON.stringify(document), ticket }).then(() => {
+    debug(`Created successfull with ticket ${ticket}`);
     res.send(ticket);
   }).catch((error) => {
     res.status(500).send(error);
@@ -64,4 +67,4 @@ app.get('/document', (req, res) => {
     res.status(400).send();
   }
 });
-app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
+app.listen(port, () => debug(`Example app listening at http://localhost:${port}`));

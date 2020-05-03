@@ -11,6 +11,7 @@
     "@grpc/proto-loader": "^0.5.4",
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
+    "debug": "^4.1.1",
     "express": "^4.17.1",
     "grpc": "^1.24.2",
     "grpc-promise": "^1.4.0",
@@ -18,7 +19,7 @@
     "uuid": "^8.0.0"
   },
   "scripts": {
-    "start": "nodemon src/watermarker & nodemon src/userInterface & nodemon src/worker & nodemon src/documentService",
+    "start": "DEBUG=assess* nodemon src/watermarker & DEBUG=assess* nodemon src/userInterface & DEBUG=assess* nodemon src/worker & DEBUG=assess* nodemon src/documentService",
     "test": "mocha test/unit/watermarker/index.spec.js"
   },
   "devDependencies": {

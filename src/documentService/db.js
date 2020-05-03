@@ -1,4 +1,5 @@
 const mongodb = require('mongodb');
+const debug = require('debug')('assess-documentService-db');
 const config = require('../common/config');
 
 const MongoClient = mongodb.MongoClient(config.mongoUri);
@@ -8,6 +9,7 @@ let collection = {
 MongoClient.connect((err, client) => {
   if (err) { throw err; }
   collection = client.db().collection('documents');
+  debug('Initialised collection');
 });
 
 module.exports = {
