@@ -30,7 +30,7 @@ app.get('/status', (req, res) => {
                 else
                     return Promise.reject({status: 500, message:"Status not found on document"})
             } else {
-                return Promise.reject({status: 401, message:"No document found"})
+                return Promise.reject({status: 400, message:"No document found"})
             }
         }).catch(error=>{
             if (error.status)
@@ -41,5 +41,25 @@ app.get('/status', (req, res) => {
     } else {
         res.status(400).send()
     }
-})
+});
+
+app.get('/document', (req, res) => {
+    ticket = req.query.ticket
+    if (ticket) {
+        db.get(ticket).then(result=>{
+            if (result) {
+                res.json(result);
+            } else {
+                return Promise.reject({status: 400, message:"No document found"})
+            }
+        }).catch(error=>{
+            if (error.status)
+                res.status(error.status).json(error);
+            else
+                res.status(500).send("Some error occured")
+        })
+    } else {
+        res.status(400).send()
+    }
+});
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
