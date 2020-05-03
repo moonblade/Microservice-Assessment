@@ -31,10 +31,10 @@ documentService.addService(documentProto.DocumentService.service, {
   },
   insert: (call, callback) => {
     const document = JSON.parse(call.request.document);
-    debug('Insert new document');
+    debug(`Insert new document ${document.ticket}`);
     db.insert(document).then((result) => {
       if (!result) return Promise.reject({ status: 500, message: 'Could not insert document' });
-      debug('Inserted new document');
+      debug(`Inserted new document ${document.ticket}`);
       callback(null, {});
       return null;
     }).catch((error) => {

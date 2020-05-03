@@ -28,9 +28,9 @@ app.post('/watermark', (req, res) => {
       debug('Inserted watermark');
       return db.update().sendMessage({ ticket, document: JSON.stringify(document) });
     })
-    .then(() => {
+    .then(async () => {
       debug('Updating status to completed');
-      publish({
+      await publish({
         ticket,
         status: 'completed',
       });

@@ -19,7 +19,8 @@
     "uuid": "^8.0.0"
   },
   "scripts": {
-    "start": "DEBUG=assess* nodemon src/watermarker & DEBUG=assess* nodemon src/userInterface & DEBUG=assess* nodemon src/worker & DEBUG=assess* nodemon src/documentService& DEBUG=assess* nodemon src/statusService",
+    "start": "DEBUG=assess* node src/watermarker & DEBUG=assess* node src/userInterface & DEBUG=assess* node src/worker & DEBUG=assess* node src/documentService& DEBUG=assess* node src/statusService",
+    "dummy": "DEBUG=assess* nodemon src/watermarker & DEBUG=assess* nodemon src/userInterface & DEBUG=assess* nodemon src/worker & DEBUG=assess* nodemon src/documentService& DEBUG=assess* nodemon src/statusService",
     "test": "mocha test/unit/watermarker/index.spec.js"
   },
   "devDependencies": {

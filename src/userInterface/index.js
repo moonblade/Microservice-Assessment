@@ -18,11 +18,11 @@ app.post('/watermark', (req, res) => {
   const ticket = uuid();
   document.ticket = ticket;
   debug('Create new document');
-  publish({
-    ticket,
-    status: 'created',
-  });
-  db.insert().sendMessage({ document: JSON.stringify(document), ticket }).then(() => {
+  db.insert().sendMessage({ document: JSON.stringify(document), ticket }).then(async () => {
+    await publish({
+      ticket,
+      status: 'created',
+    });
     debug(`Created successfull with ticket ${ticket}`);
     res.send(ticket);
   }).catch((error) => {
