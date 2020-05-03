@@ -1,18 +1,16 @@
-const config = require('../common/config')
-var MongoClient = require('mongodb').MongoClient(config.mongoUri)
-var db = {
-    findOne: ()=>{
-        return Promise.reject();
-    }
+const mongodb = require('mongodb');
+const config = require('../common/config');
+
+const MongoClient = mongodb(config.mongoUri);
+
+let db = {
+  findOne: () => Promise.reject(),
 };
 MongoClient.connect((err, client) => {
-    if (err)
-        throw err
-    db = client.db().collection('documents')
+  if (err) throw err;
+  db = client.db().collection('documents');
 });
 
 module.exports = {
-    get: () => {
-        return db.findOne({ "status.string": "pending" })
-    }
-}
+  get: () => db.findOne({ 'status.string': 'pending' }),
+};
