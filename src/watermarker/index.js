@@ -7,7 +7,7 @@ const port = 3000;
 app.use(bodyParser.json());
 
 app.post('/watermark', (req, res) => {
-  const ticket = req.body.ticket || {};
+  const ticket = req.body.ticket || '';
   db.get(ticket).then((rawDocument) => {
     const document = rawDocument || {};
     const type = document.topic ? 'book' : 'journal';

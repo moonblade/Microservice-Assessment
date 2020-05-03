@@ -12,5 +12,5 @@ MongoClient.connect((err, client) => {
 
 module.exports = {
   insert: (document) => collection.insertOne(document),
-  get: (ticket) => collection.findOne({ 'status.ticket': ticket }),
+  get: (ticket) => collection.findOne({ ticket }),
 };

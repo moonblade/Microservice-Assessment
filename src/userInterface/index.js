@@ -26,6 +26,7 @@ app.post('/watermark', (req, res) => {
 });
 
 app.get('/status', (req, res) => {
+  return res.status(500).send('Not implemented');
   const { ticket } = req.query;
   if (ticket) {
     db.get().sendMessage({ ticket }).then((result) => {
@@ -46,7 +47,7 @@ app.get('/status', (req, res) => {
 });
 
 app.get('/document', (req, res) => {
-  const { ticket } = req.query.ticket;
+  const { ticket } = req.query;
   if (ticket) {
     db.get().sendMessage({ ticket }).then((result) => {
       if (result) {

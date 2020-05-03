@@ -10,12 +10,11 @@ MongoClient.connect((err, client) => {
 });
 
 module.exports = {
-  get: (ticket) => db.findOne({ 'status.ticket': ticket }),
+  get: (ticket) => db.findOne({ ticket }),
   update: (ticket, document) => db.updateOne({
-    'status.ticket': ticket,
+    ticket,
   }, {
     $set: {
-      status: document.status,
       watermark: document.watermark,
     },
   }),
