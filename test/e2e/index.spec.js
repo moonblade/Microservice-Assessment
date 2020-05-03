@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable import/no-extraneous-dependencies */
 const chai = require('chai');
 chai.use(require('chai-http'));
@@ -39,7 +40,7 @@ const checkStatus = (ticket, done) => {
         console.log(`current status of ${ticket} is ${status} waiting for completion`);
         setTimeout(() => {
           checkStatus(ticket, done);
-        }, 1000);
+        }, 300);
       } else {
         checkDocument(ticket, done);
       }
@@ -47,7 +48,7 @@ const checkStatus = (ticket, done) => {
 };
 
 const createDocument = async (index, isBook = true) => {
-  it(`Testingn on ${isBook ? 'book' : 'journal'} ${index}`, (done) => {
+  it(`Testing on ${isBook ? 'book' : 'journal'} ${index}`, (done) => {
     request(base)
       .post('/watermark')
       .send(isBook ? util.getBook() : util.getJournal())
@@ -62,7 +63,7 @@ const createDocument = async (index, isBook = true) => {
 };
 
 
-describe('user endpoint', function endpoint() {
+describe('user full flow', function endpoint() {
   this.timeout(5000);
   const maxIndex = 10;
   for (let index = 0; index < maxIndex; index += 1) {

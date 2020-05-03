@@ -1,6 +1,7 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const chai = require('chai');
-const config = require('./config.js');
 chai.use(require('chai-http'));
+const config = require('./config.js');
 
 const { expect, request } = chai;
 

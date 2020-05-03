@@ -3,13 +3,12 @@ const debug = require('debug')('assess-worker');
 const config = require('./config');
 const pubsub = require('./pubsub');
 
-pubsub.subscription.on('message', (message) => {
+pubsub.subscription.on('message', async (message) => {
   const { ticket, status } = message.attributes;
   if (status === 'created') {
     debug(`Sending watermark request for ticket ${ticket}`);
     axios.post(`${config.base}/watermark`, { ticket });
-    debug('updating status to pending');
-    pubsub.publish({
+    await pubsub.publish({
       ticket,
       status: 'pending',
     });
