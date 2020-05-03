@@ -19,7 +19,7 @@
     "uuid": "^8.0.0"
   },
   "scripts": {
-    "start": "DEBUG=assess* nodemon src/watermarker & DEBUG=assess* nodemon src/userInterface & DEBUG=assess* nodemon src/worker & DEBUG=assess* nodemon src/documentService",
+    "start": "DEBUG=assess* nodemon src/watermarker & DEBUG=assess* nodemon src/userInterface & DEBUG=assess* nodemon src/worker & DEBUG=assess* nodemon src/documentService& DEBUG=assess* nodemon src/statusService",
     "test": "mocha test/unit/watermarker/index.spec.js"
   },
   "devDependencies": {

@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const debug = require('debug')('assess-watermarker');
 const db = require('./db');
+const { publish } = require('./pubsub');
 
 const app = express();
 const port = 3000;
@@ -22,9 +23,13 @@ app.post('/watermark', (req, res) => {
     };
     document.watermark = watermark;
     debug('Inserted watermark');
-    debug(watermark);
     return db.update(ticket, document);
   }).then(() => {
+    debug('Updating status to completed');
+    publish({
+      ticket,
+      status: 'completed',
+    });
     res.send();
   }).catch((error) => {
     debug('Watermark failed with error');

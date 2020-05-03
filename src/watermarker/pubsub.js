@@ -1,12 +1,13 @@
 const { PubSub } = require('@google-cloud/pubsub');
-const debug = require('debug')('assess-worker-pubsub');
+const debug = require('debug')('assess-watermarker-pubsub');
 
 const pubSubClient = new PubSub();
 const topic = 'assessment-status-update';
-const subscriptionName = 'statusWorker';
-const subscription = pubSubClient.subscription(subscriptionName);
 module.exports = {
-  subscription,
+  // messages are of the form
+  // { ticket: ticket,
+  //   status: statusString
+  // }
   publish: async (message) => {
     const messageName = 'statusUpdate';
     debug('Publishing message');
