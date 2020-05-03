@@ -1,3 +1,4 @@
-### v1.1 architechture
+# Watermark microservice project for assessment
 
-![v1.1](https://github.com/moonblade/watermark/raw/dev/assets/archv1.1.png)
+check changelog for now
+

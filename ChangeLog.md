@@ -1,18 +1,24 @@
 # Changelog
 
 ### milestone 1.1
+
+v1.1.1
+![v1.1](https://github.com/moonblade/watermark/raw/dev/assets/archv1.1.1.png)
+
+v1.1
 ![v1.1](https://github.com/moonblade/watermark/raw/dev/assets/archv1.1.png)
 
 making microservices
 
 todo :
-- each service should have its own db, and not shared db
-    - document and status seperated out
-- worker should get work from pubsub queue and not query db
-- setup a logging framework
 
 done:
 - use grpc communication
+- worker should get work from pubsub queue and not query db
+- setup a logging framework - using debug, is okay for nonw
+- lint it
+- each service should have its own db, and not shared db
+    - document and status seperated out
 
 ### milestone - 1
 minimum viable app with functionality
