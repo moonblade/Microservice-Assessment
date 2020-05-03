@@ -4,7 +4,7 @@ const config = require('../common/config');
 
 const MongoClient = mongodb.MongoClient(config.mongoUri);
 let collection = {
-  findOne: () => Promise.reject(new Error({ error: 500, messaage: 'Server not initialised yet' })),
+  findOne: () => Promise.reject({ error: 500, message: 'Server not initialised yet' }),
 };
 MongoClient.connect((err, client) => {
   if (err) { throw err; }

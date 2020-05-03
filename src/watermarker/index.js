@@ -38,4 +38,4 @@ app.post('/watermark', (req, res) => {
   });
 });
 
-app.listen(port, () => debug(`Example app listening at http://localhost:${port}`));
+app.listen(port, () => debug(`Watermarker listening at http://localhost:${port}`));

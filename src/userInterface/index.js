@@ -1,11 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const debug = require('debug')('assess-userInterface');
+const axios = require('axios');
+const { v4: uuid } = require('uuid');
 
 const app = express();
 const port = 3001;
-const { v4: uuid } = require('uuid');
 const db = require('./db');
+const config = require('../common/config');
 const { publish } = require('./pubsub');
 
 app.use(bodyParser.json());
@@ -29,24 +31,21 @@ app.post('/watermark', (req, res) => {
 });
 
 app.get('/status', (req, res) => {
-  return res.status(500).send('Not implemented');
   const { ticket } = req.query;
-  if (ticket) {
-    db.get().sendMessage({ ticket }).then((result) => {
-      if (result) {
-        if (result && result.status) res.json(result.status.string || 'unknown');
-        else return Promise.reject(new Error({ status: 500, message: 'Status not found on document' }));
-      } else {
-        return Promise.reject(new Error({ status: 400, message: 'No document found' }));
-      }
-      return null;
-    }).catch((error) => {
-      if (error.status) res.status(error.status).json(error);
-      else res.status(500).send('Some error occured');
-    });
-  } else {
-    res.status(400).send();
-  }
+  debug(`Find status of document ${ticket}`);
+  axios.get(`${config.statusService}/status`, {
+    params: {
+      ticket,
+    },
+  }).then((result) => {
+    const status = result.data;
+    debug(`Found status of document ${ticket} as ${status}`);
+    res.send(status);
+  }).catch((error) => {
+    debug('Status not found due to error');
+    debug(error.response.data);
+    res.status(500).send(error.response.data);
+  });
 });
 
 app.get('/document', (req, res) => {
@@ -56,15 +55,15 @@ app.get('/document', (req, res) => {
       if (result) {
         res.json(JSON.parse(result.document || ''));
       } else {
-        return Promise.reject(new Error({ status: 400, message: 'No document found' }));
+        return Promise.reject({ status: 400, message: 'No document found' });
       }
       return null;
     }).catch((error) => {
       if (error.status) res.status(error.status).json(error);
-      else res.status(500).send(error);
+      else res.status(500).send(error.message);
     });
   } else {
     res.status(400).send();
   }
 });
-app.listen(port, () => debug(`Example app listening at http://localhost:${port}`));
+app.listen(port, () => debug(`User interface listening at http://localhost:${port}`));

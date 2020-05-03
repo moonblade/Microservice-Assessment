@@ -19,7 +19,7 @@ documentService.addService(documentProto.DocumentService.service, {
     const { ticket } = call.request;
     debug(`Get document with ticket ${ticket}`);
     db.get(ticket).then((result) => {
-      if (!result) return Promise.reject(new Error({ status: 400, message: 'cannot find document with ticket' }));
+      if (!result) return Promise.reject({ status: 400, message: 'cannot find document with ticket' });
       debug(`retrieved document for ticket ${ticket}`);
       callback(null, { document: JSON.stringify(result), ticket });
       return null;
@@ -33,7 +33,7 @@ documentService.addService(documentProto.DocumentService.service, {
     const document = JSON.parse(call.request.document);
     debug('Insert new document');
     db.insert(document).then((result) => {
-      if (!result) return Promise.reject(new Error({ status: 500, message: 'Could not insert document' }));
+      if (!result) return Promise.reject({ status: 500, message: 'Could not insert document' });
       debug('Inserted new document');
       callback(null, {});
       return null;
