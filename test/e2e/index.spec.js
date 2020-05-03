@@ -7,48 +7,57 @@ const util = require('./util');
 const base = 'http://localhost:3001';
 const { expect, request } = chai;
 
-const tickets = [];
+let savedTicket = '';
 
-const checkDocument = (ticket, done) => {
-  request(base)
-    .get('/document')
-    .query({ ticket })
-    .end((err, res) => {
-      expect(err).to.equal(null);
-      expect(res.status).to.equal(200);
-      const document = res.body;
-      expect(document).to.haveOwnProperty('watermark');
-      expect(document.watermark).to.haveOwnProperty('type');
-      if (document.topic) {
-        expect(document.watermark.type).to.be.equal('book');
-      } else {
-        expect(document.watermark.type).to.be.equal('journal');
-      }
-      done();
-    });
+const checkDocument = (index) => {
+  it(`Should have document with watermark on complete for document ${index}`, (done) => {
+    const ticket = savedTicket;
+    request(base)
+      .get('/document')
+      .query({ ticket })
+      .end((err, res) => {
+        expect(err).to.equal(null);
+        expect(res.status).to.equal(200);
+        const document = res.body;
+        expect(document).to.haveOwnProperty('watermark');
+        expect(document.watermark).to.haveOwnProperty('type');
+        if (document.topic) {
+          expect(document.watermark.type).to.be.equal('book');
+        } else {
+          expect(document.watermark.type).to.be.equal('journal');
+        }
+        done();
+      });
+  });
 };
 
-const checkStatus = (ticket, done) => {
-  request(base)
-    .get('/status')
-    .query({ ticket })
-    .end((err, res) => {
-      expect(err).to.equal(null);
-      expect(res.status).to.equal(200);
-      const status = res.text;
-      if (status !== 'completed') {
-        console.log(`current status of ${ticket} is ${status} waiting for completion`);
-        setTimeout(() => {
-          checkStatus(ticket, done);
-        }, 300);
-      } else {
-        checkDocument(ticket, done);
-      }
-    });
+const checkStatus = (index) => {
+  it(`Should check status till complete for the document ${index}`, (tempDone) => {
+    const ticket = savedTicket;
+    const singleCheck = (done) => {
+      request(base)
+        .get('/status')
+        .query({ ticket })
+        .end((err, res) => {
+          expect(err).to.equal(null);
+          expect(res.status).to.equal(200);
+          const status = res.text;
+          if (status !== 'completed') {
+            console.log(`\t\tcurrent status of ${ticket} is ${status} waiting for completion`);
+            setTimeout(() => {
+              singleCheck(done);
+            }, 200);
+          } else {
+            done();
+          }
+        });
+    };
+    singleCheck(tempDone);
+  });
 };
 
 const createDocument = async (index, isBook = true) => {
-  it(`Testing on ${isBook ? 'book' : 'journal'} ${index}`, (done) => {
+  it(`Creating ${isBook ? 'book' : 'journal'} ${index}`, (done) => {
     request(base)
       .post('/watermark')
       .send(isBook ? util.getBook() : util.getJournal())
@@ -56,17 +65,18 @@ const createDocument = async (index, isBook = true) => {
         expect(err).to.equal(null);
         expect(res.status).to.equal(200);
         const ticket = res.text;
-        tickets.push(ticket);
-        checkStatus(ticket, done);
+        savedTicket = ticket;
+        done();
       });
   });
 };
 
 
-describe('user full flow', function endpoint() {
-  this.timeout(5000);
+describe('user full flow', () => {
   const maxIndex = 10;
   for (let index = 0; index < maxIndex; index += 1) {
     createDocument(index, index < maxIndex / 2);
+    checkStatus(index);
+    checkDocument(index);
   }
 });
