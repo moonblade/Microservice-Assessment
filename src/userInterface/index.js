@@ -8,12 +8,13 @@ app.use(bodyParser.json());
 
 app.post('/watermark', (req, res) => {
     let document = req.body || {};
-    // status can be pending', 'completed'
+    // status can be 'created', 'pending', 'completed'
+    let ticket = uuid()
     document.status = {
-        ticket: uuid(),
-        string: 'pending'
+        string: 'created',
+        ticket
     }
-    db.save(document).then(()=>{
+    db.insert().sendMessage({document: JSON.stringify(document), ticket}).then(()=>{
         res.send(document.status.ticket);
     }).catch(error=>{
         res.status(500).send(error);
@@ -23,7 +24,7 @@ app.post('/watermark', (req, res) => {
 app.get('/status', (req, res) => {
     ticket = req.query.ticket
     if (ticket) {
-        db.get(ticket).then(result=>{
+        db.get().sendMessage({ticket}).then(result=>{
             if (result) {
                 if (result && result.status)
                     res.json(result.status.string || unknown);
@@ -46,8 +47,9 @@ app.get('/status', (req, res) => {
 app.get('/document', (req, res) => {
     ticket = req.query.ticket
     if (ticket) {
-        db.get(ticket).then(result=>{
+        db.get().sendMessage({ticket}).then(result=>{
             if (result) {
+                result = JSON.parse(result.document);
                 res.json(result);
             } else {
                 return Promise.reject({status: 400, message:"No document found"})
@@ -56,7 +58,7 @@ app.get('/document', (req, res) => {
             if (error.status)
                 res.status(error.status).json(error);
             else
-                res.status(500).send("Some error occured")
+                res.status(500).send(error);
         })
     } else {
         res.status(400).send()

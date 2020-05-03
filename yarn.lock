@@ -977,6 +977,11 @@ growl@1.10.5:
   resolved "https://registry.yarnpkg.com/growl/-/growl-1.10.5.tgz#f2735dc2283674fa67478b10181059355c369e5e"
   integrity sha512-qBr4OuELkhPenW6goKVXiv47US3clb3/IbuWF9KNKEijAy9oeHxU9IgzjvJhHkUzhaj7rOUD7+YGWqUjLp5oSA==
 
+grpc-promise@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/grpc-promise/-/grpc-promise-1.4.0.tgz#12932c97ab66c2a993522694eac21be7be18060e"
+  integrity sha512-4BBXHXb5OjjBh7luylu8vFqL6H6aPn/LeqpQaSBeRzO/Xv95wHW/WkU9TJRqaCTMZ5wq9jTSvlJWp0vRJy1pVA==
+
 grpc@^1.24.2:
   version "1.24.2"
   resolved "https://registry.yarnpkg.com/grpc/-/grpc-1.24.2.tgz#76d047bfa7b05b607cbbe3abb99065dcefe0c099"

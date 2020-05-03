@@ -11,5 +11,5 @@ message Empty {}
 message Document {
     string ticket = 1;
     // entire json document sneaked in as payload, give flexibility of what doc can be
-    string payload = 2;
+    string document = 2;
 }

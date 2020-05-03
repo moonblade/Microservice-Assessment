@@ -14,15 +14,30 @@ var documentProto = grpc.loadPackageDefinition(packageDefinition);
 const documentService = new grpc.Server();
 documentService.addService(documentProto.DocumentService.service, {
     get: (call, callback) => {
-        let ticket = call.request;
+        let ticket = call.request.ticket;
+        console.log("in get " + ticket);
         db.get(ticket).then(result => {
             if (!result)
                 return Promise.reject({ status: 400, message: "cannot find document with ticket" })
-            callback(null, { document: JSON.stringify(result) }, ticket);
+            console.log(result);
+            callback(null, { document: JSON.stringify(result) , ticket});
         }).catch(error => {
             callback(error);
         });
-    }
+    },
+    insert: (call, callback) => {
+        let document = JSON.parse(call.request.document);
+        let ticket = call.request.ticket;
+        console.log("in put " + ticket);
+        db.insert(document).then(result => {
+            if (!result)
+                return Promise.reject({ status: 500, message: "Could not insert document" })
+            callback(null, {});
+        }).catch(error => {
+            callback(error);
+        });
+    },
+
 });
 
 documentService.bind(config.docService, grpc.ServerCredentials.createInsecure());

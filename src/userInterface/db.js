@@ -1,17 +1,20 @@
+const PROTO_PATH = `${__dirname}/../common/document.proto`;
 const config = require('../common/config')
-var MongoClient = require('mongodb').MongoClient(config.mongoUri)
-var db = null;
-MongoClient.connect((err, client)=>{
-  if (err)
-    throw err
-  db = client.db().collection('documents')
+const grpc = require("grpc");
+const protoLoader = require("@grpc/proto-loader");
+const grpc_promise = require('grpc-promise');
+var packageDefinition = protoLoader.loadSync(PROTO_PATH, {
+    keepCase: true,
+    longs: String,
+    enums: String,
+    arrays: true
 });
 
-module.exports = {
-  save: (document)=>{
-    return db.insertOne(document);
-  },
-  get: (ticket) => {
-    return db.findOne({ "status.ticket": ticket })
-},
-}
+const documentService = grpc.loadPackageDefinition(packageDefinition).DocumentService;
+const client = new documentService(
+    config.docService,
+    grpc.credentials.createInsecure()
+);
+grpc_promise.promisifyAll(client);
+
+module.exports = client;

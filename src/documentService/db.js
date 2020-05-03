@@ -1,17 +1,21 @@
 const config = require('../common/config')
 var MongoClient = require('mongodb').MongoClient(config.mongoUri)
-var db = null;
+var collection = {
+    findOne: ()=>{
+        return Promise.reject({error:500, messaage: "Server not initialised yet"});
+    }
+};
 MongoClient.connect((err, client)=>{
   if (err)
     throw err
-  db = client.db().collection('documents')
+  collection = client.db().collection('documents')
 });
 
 module.exports = {
   insert: (document)=>{
-    return db.insertOne(document);
+    return collection.insertOne(document);
   },
   get: (ticket) => {
-    return db.findOne({ "status.ticket": ticket })
+    return collection.findOne({ "status.ticket": ticket })
 },
 }
