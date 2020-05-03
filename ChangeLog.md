@@ -1,5 +1,16 @@
+### milestone 1.1
+making microservices
+
+todo :
+- each service should have its own db, and not shared db
+    - document and status seperated out
+- worker should get work from pubsub queue and not query db
+- setup a logging framework
+- use grpc communication
+
 ### milestone - 1
-minimum viable app
+minimum viable app with functionality
+![v1.0](https://github.com/moonblade/watermark/raw/dev/assets/archv1.0.png)
 
 #### 1.0.6
 - Add retriever to get the document

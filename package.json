@@ -7,14 +7,16 @@
   "author": "moonblade <moonblade168@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@grpc/proto-loader": "^0.5.4",
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
+    "grpc": "^1.24.2",
     "mongodb": "^3.5.7",
     "uuid": "^8.0.0"
   },
   "scripts": {
-    "start": "nodemon src/watermarker & nodemon src/userInterface & nodemon src/worker",
+    "start": "nodemon src/watermarker & nodemon src/userInterface & nodemon src/worker & nodemon src/documentService",
     "test": "mocha test/unit/watermarker/index.spec.js"
   },
   "devDependencies": {
