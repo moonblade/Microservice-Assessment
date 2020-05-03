@@ -1,7 +1,7 @@
 const mongodb = require('mongodb');
 const config = require('../common/config');
 
-const MongoClient = mongodb(config.mongoUri);
+const MongoClient = mongodb.MongoClient(config.mongoUri);
 
 let db = {
   findOne: () => Promise.reject(),

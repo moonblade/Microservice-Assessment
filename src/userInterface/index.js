@@ -5,6 +5,7 @@ const app = express();
 const port = 3001;
 const { v4: uuid } = require('uuid');
 const db = require('./db');
+const { publish } = require('./pubsub');
 
 app.use(bodyParser.json());
 
@@ -12,12 +13,13 @@ app.post('/watermark', (req, res) => {
   const document = req.body || {};
   // status can be 'created', 'pending', 'completed'
   const ticket = uuid();
-  document.status = {
-    string: 'created',
+  document.ticket = ticket;
+  publish({
     ticket,
-  };
+    status: 'created',
+  });
   db.insert().sendMessage({ document: JSON.stringify(document), ticket }).then(() => {
-    res.send(document.status.ticket);
+    res.send(ticket);
   }).catch((error) => {
     res.status(500).send(error);
   });
