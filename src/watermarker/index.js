@@ -12,9 +12,11 @@ app.post('/watermark', (req, res) => {
   const ticket = req.body.ticket || '';
   debug(`Watermark request for ticket ${ticket}`);
   db.get().sendMessage({ ticket })
-    .then((rawDocument) => {
+    .then((result) => {
       debug('Got document to watermark');
-      const document = rawDocument || {};
+      const rawDocument = result.document;
+      debug(rawDocument);
+      const document = JSON.parse(rawDocument) || {};
       const type = document.topic ? 'book' : 'journal';
       const watermark = {
         title: document.title,

@@ -52,15 +52,19 @@ app.get('/document', (req, res) => {
   const { ticket } = req.query;
   if (ticket) {
     db.get().sendMessage({ ticket }).then((result) => {
+      debug(`Get document ${ticket}`);
       if (result) {
+        debug(`Document with ticket ${ticket} found`);
         res.json(JSON.parse(result.document || ''));
       } else {
         return Promise.reject({ status: 400, message: 'No document found' });
       }
       return null;
     }).catch((error) => {
-      if (error.status) res.status(error.status).json(error);
-      else res.status(500).send(error.message);
+      debug('Document not found due to error');
+      debug(error);
+      res.status(error.status || 500);
+      res.send(error.message);
     });
   } else {
     res.status(400).send();

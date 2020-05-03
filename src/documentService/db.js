@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 const mongodb = require('mongodb');
 const debug = require('debug')('assess-documentService-db');
 const config = require('../common/config');
@@ -15,11 +16,9 @@ MongoClient.connect((err, client) => {
 module.exports = {
   insert: (document) => collection.insertOne(document),
   get: (ticket) => collection.findOne({ ticket }),
-  update: (ticket, document) => collection.replaceOne({
-    ticket,
-  }, {
-    document,
-  }, {
-    upsert: true,
-  }),
+  update: (ticket, document) => {
+    // eslint-disable-next-line no-param-reassign
+    delete document._id;
+    return collection.replaceOne({ ticket }, document);
+  },
 };
