@@ -3,6 +3,7 @@ const debug = require('debug')('assess-worker');
 const config = require('./config');
 const pubsub = require('./pubsub');
 
+debug('Worker is running');
 pubsub.subscription.on('message', async (message) => {
   const { ticket, status } = message.attributes;
   if (status === 'created') {

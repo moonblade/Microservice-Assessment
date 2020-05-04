@@ -1,0 +1,19 @@
+{
+  "name": "watermarker",
+  "version": "1.0.0",
+  "description": "watermarks a document found from ticket",
+  "main": "index.js",
+  "repository": "git@github.com:moonblade/watermark.git",
+  "author": "moonblade",
+  "license": "MIT",
+  "scripts": {
+    "start": "DEBUG=assess* node index.js"
+  },
+  "dependencies": {
+    "@google-cloud/pubsub": "^1.7.2",
+    "@grpc/proto-loader": "^0.5.4",
+    "express": "^4.17.1",
+    "grpc": "^1.24.2",
+    "grpc-promise": "^1.4.0"
+  }
+}
