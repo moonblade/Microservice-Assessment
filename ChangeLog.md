@@ -1,5 +1,14 @@
 # Changelog
 
+### mileston 1.2
+todo:
+add graphql to document service
+run each service on a docker container
+use docker compose to start the containers
+
+done:
+refactor each service into its own independant thing
+
 ### milestone 1.1
 
 v1.1.1

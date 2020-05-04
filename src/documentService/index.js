@@ -1,9 +1,9 @@
-const PROTO_PATH = `${__dirname}/../common/document.proto`;
+const PROTO_PATH = `${__dirname}/./document.proto`;
 const grpc = require('grpc');
 const protoLoader = require('@grpc/proto-loader');
 const debug = require('debug')('assess-documentService');
 const db = require('./db');
-const config = require('../common/config');
+const docService = '0.0.0.0:3002';
 
 const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
   keepCase: true,
@@ -60,6 +60,6 @@ documentService.addService(documentProto.DocumentService.service, {
   },
 });
 
-documentService.bind(config.docService, grpc.ServerCredentials.createInsecure());
-debug(`document service running at ${config.docService}`);
+documentService.bind(docService, grpc.ServerCredentials.createInsecure());
+debug(`document service running at ${docService}`);
 documentService.start();

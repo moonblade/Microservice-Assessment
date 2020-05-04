@@ -1,0 +1,7 @@
+version: "3.2"
+services:
+  documentservice:
+    build: documentService
+    image: moonblade/documentservice
+    ports:
+      - "3002:3002"

@@ -34,7 +34,7 @@ const checkDocument = (index) => {
 const checkStatus = (index) => {
   it(`Should check status till complete for the document ${index}`, (tempDone) => {
     const ticket = savedTicket;
-    const singleCheck = (done) => {
+    const singleCheck = (done, retry) => {
       request(base)
         .get('/status')
         .query({ ticket })
@@ -42,17 +42,18 @@ const checkStatus = (index) => {
           expect(err).to.equal(null);
           expect(res.status).to.equal(200);
           const status = res.text;
+          expect(retry).to.be.lessThan(10);
           if (status !== 'completed') {
             console.log(`\t\tcurrent status of ${ticket} is ${status} waiting for completion`);
             setTimeout(() => {
-              singleCheck(done);
+              singleCheck(done, retry + 1);
             }, 200);
           } else {
             done();
           }
         });
     };
-    singleCheck(tempDone);
+    singleCheck(tempDone, 0);
   });
 };
 
