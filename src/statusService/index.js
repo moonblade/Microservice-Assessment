@@ -17,7 +17,10 @@ pubsub.subscription.on('message', (message) => {
 });
 
 app.get('/status', (req, res) => {
+  debug(req.query)
+  debug(req.query.ticket)
   const { ticket } = req.query;
+  debug(ticket)
   debug(`Got request for status of ${ticket}`);
   db.get(ticket).then((result) => {
     if (!result) return Promise.reject({ status: 400, message: 'Invalid ticket provided' });

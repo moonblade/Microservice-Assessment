@@ -5,3 +5,15 @@ services:
     image: moonblade/documentservice
     ports:
       - "3002:3002"
+      - "5000:80"
+  statusservice:
+    build: statusService
+    image: moonblade/statusservice
+    ports:
+      - "3003:3003"
+      - "5001:80"
+    volumes:
+      - ~/.config/gcloud:/home/.config/gcloud
+    environment:
+      GCLOUD_PROJECT: "plucky-door-200208"
+      GOOGLE_APPLICATION_CREDENTIALS: "/home/.config/gcloud/gcloud.json"

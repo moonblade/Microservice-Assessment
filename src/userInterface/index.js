@@ -12,7 +12,7 @@ const { publish } = require('./pubsub');
 
 app.use(bodyParser.json());
 
-app.post('/watermark', (req, res) => {
+app.post('/watermark', async (req, res) => {
   const document = req.body || {};
   // status can be 'created', 'pending', 'completed'
   const ticket = uuid();
