@@ -3,12 +3,12 @@ const bodyParser = require('body-parser');
 const debug = require('debug')('assess-userInterface');
 const axios = require('axios');
 const { v4: uuid } = require('uuid');
+const db = require('./db');
+const { publish } = require('./pubsub');
 
 const app = express();
 const port = 3001;
-const db = require('./db');
-const config = require('../common/config');
-const { publish } = require('./pubsub');
+const statusService = 'http://statusservice:3003';
 
 app.use(bodyParser.json());
 
@@ -19,13 +19,20 @@ app.post('/watermark', async (req, res) => {
   document.ticket = ticket;
   debug('Create new document');
   db.insert().sendMessage({ document: JSON.stringify(document), ticket }).then(async () => {
-    await publish({
-      ticket,
-      status: 'created',
-    });
+    try {
+        await publish({
+            ticket,
+            status: 'created',
+        });
+    } catch (error) {
+        debug('Publish failed with error');
+        debug(error);
+    }
     debug(`Created successfull with ticket ${ticket}`);
     res.send(ticket);
   }).catch((error) => {
+    debug('Creation of document failed with error');
+    debug(error);
     res.status(500).send(error);
   });
 });
@@ -33,7 +40,7 @@ app.post('/watermark', async (req, res) => {
 app.get('/status', (req, res) => {
   const { ticket } = req.query;
   debug(`Find status of document ${ticket}`);
-  axios.get(`${config.statusService}/status`, {
+  axios.get(`${statusService}/status`, {
     params: {
       ticket,
     },
@@ -43,8 +50,10 @@ app.get('/status', (req, res) => {
     res.send(status);
   }).catch((error) => {
     debug('Status not found due to error');
-    debug(error.response.data);
-    res.status(500).send(error.response.data);
+    if (error.response && error.response.data)
+        error = error.response.data
+    debug(error)
+    res.status(500).send(error);
   });
 });
 

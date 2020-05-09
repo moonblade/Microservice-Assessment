@@ -3,7 +3,7 @@ const grpc = require('grpc');
 const protoLoader = require('@grpc/proto-loader');
 const debug = require('debug')('assess-documentService');
 const db = require('./db');
-const docService = '0.0.0.0:3002';
+const docService = 'documentservice:3002';
 
 const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
   keepCase: true,

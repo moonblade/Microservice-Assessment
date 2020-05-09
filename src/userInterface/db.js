@@ -1,8 +1,8 @@
-const PROTO_PATH = `${__dirname}/../common/document.proto`;
+const PROTO_PATH = `${__dirname}/./document.proto`;
 const grpc = require('grpc');
 const protoLoader = require('@grpc/proto-loader');
 const grpcPromise = require('grpc-promise');
-const config = require('../common/config');
+const docService = 'documentservice:3002';
 
 const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
   keepCase: true,
@@ -13,7 +13,7 @@ const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
 
 const { DocumentService } = grpc.loadPackageDefinition(packageDefinition);
 const client = new DocumentService(
-  config.docService,
+  docService,
   grpc.credentials.createInsecure(),
 );
 grpcPromise.promisifyAll(client);
