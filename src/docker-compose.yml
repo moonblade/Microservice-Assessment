@@ -30,3 +30,13 @@ services:
     environment:
       GCLOUD_PROJECT: "plucky-door-200208"
       GOOGLE_APPLICATION_CREDENTIALS: "/home/.config/gcloud/gcloud.json"
+  watermarker:
+    build: watermarker
+    # image: moonblade/watermarker
+    ports:
+      - "3000:3000"
+    volumes:
+      - ~/.config/gcloud:/home/.config/gcloud
+    environment:
+      GCLOUD_PROJECT: "plucky-door-200208"
+      GOOGLE_APPLICATION_CREDENTIALS: "/home/.config/gcloud/gcloud.json"
