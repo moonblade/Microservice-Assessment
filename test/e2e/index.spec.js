@@ -74,7 +74,7 @@ const createDocument = async (index, isBook = true) => {
 
 
 describe('user full flow', () => {
-  const maxIndex = 2;
+  const maxIndex = 20;
   for (let index = 0; index < maxIndex; index += 1) {
     createDocument(index, index < maxIndex / 2);
     checkStatus(index);
