@@ -2,16 +2,14 @@ version: "3.2"
 services:
   documentservice:
     build: documentService
-    # image: moonblade/documentservice
+    image: moonblade/documentservice
     ports:
       - "3002:3002"
-      # - "5000:80"
   statusservice:
     build: statusService
-    # image: moonblade/statusservice
+    image: moonblade/statusservice
     ports:
       - "3003:3003"
-      # - "5001:80"
     volumes:
       - ~/.config/gcloud:/home/.config/gcloud
     environment:
@@ -19,12 +17,9 @@ services:
       GOOGLE_APPLICATION_CREDENTIALS: "/home/.config/gcloud/gcloud.json"
   userinterface:
     build: userInterface
-    # image: moonblade/userinterface
+    image: moonblade/userinterface
     ports:
       - "3001:3001"
-      # - "5002:80"
-      # - "5003:3002"
-      # - "5004:3003"
     volumes:
       - ~/.config/gcloud:/home/.config/gcloud
     environment:
@@ -32,9 +27,17 @@ services:
       GOOGLE_APPLICATION_CREDENTIALS: "/home/.config/gcloud/gcloud.json"
   watermarker:
     build: watermarker
-    # image: moonblade/watermarker
+    image: moonblade/watermarker
     ports:
       - "3000:3000"
+    volumes:
+      - ~/.config/gcloud:/home/.config/gcloud
+    environment:
+      GCLOUD_PROJECT: "plucky-door-200208"
+      GOOGLE_APPLICATION_CREDENTIALS: "/home/.config/gcloud/gcloud.json"
+  worker:
+    build: worker
+    image: moonblade/worker
     volumes:
       - ~/.config/gcloud:/home/.config/gcloud
     environment:

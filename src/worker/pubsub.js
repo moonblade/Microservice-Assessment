@@ -5,6 +5,7 @@ const pubSubClient = new PubSub();
 const topic = 'assessment-status-update';
 const subscriptionName = 'statusWorker';
 const subscription = pubSubClient.subscription(subscriptionName);
+
 module.exports = {
   subscription,
   publish: async (message) => {
