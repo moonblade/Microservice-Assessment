@@ -3,13 +3,9 @@ services:
   documentservice:
     build: documentService
     image: moonblade/documentservice
-    ports:
-      - "3002:3002"
   statusservice:
     build: statusService
     image: moonblade/statusservice
-    ports:
-      - "3003:3003"
     volumes:
       - ~/.config/gcloud:/home/.config/gcloud
     environment:
@@ -28,8 +24,6 @@ services:
   watermarker:
     build: watermarker
     image: moonblade/watermarker
-    ports:
-      - "3000:3000"
     volumes:
       - ~/.config/gcloud:/home/.config/gcloud
     environment:
