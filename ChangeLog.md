@@ -4,6 +4,7 @@
 ![v2.0](https://github.com/moonblade/watermark/raw/dev/assets/archv2.0.png)
 
 todo:
+
 done:
 - start each service in a seperate docker
 - expose only userInterface api to outside of cluster
