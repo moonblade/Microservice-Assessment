@@ -1,6 +1,8 @@
 # Changelog
 
 ### milstone 2.0
+v2.0
+
 ![v2.0](https://github.com/moonblade/watermark/raw/dev/assets/archv2.0.png)
 
 todo:
