@@ -1,0 +1,17 @@
+{
+  "name": "document-service",
+  "version": "1.0.0",
+  "description": "serves document operations via grpc",
+  "main": "index.js",
+  "repository": "git@github.com:moonblade/watermark.git",
+  "author": "moonblade",
+  "license": "MIT",
+  "scripts": {
+    "start": "DEBUG=assess* node index.js"
+  },
+  "dependencies": {
+    "@grpc/proto-loader": "^0.5.4",
+    "grpc": "^1.24.2",
+    "mongodb": "^3.5.7"
+  }
+}

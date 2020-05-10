@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+service DocumentService {
+    rpc Insert (Document) returns (Empty) {}
+    // only ticket input
+    rpc Get (Document) returns (Document) {}
+    rpc Update (Document) returns (Empty) {}
+}
+
+message Empty {}
+
+message Document {
+    string ticket = 1;
+    // entire json document sneaked in as payload, give flexibility of what doc can be
+    string document = 2;
+}

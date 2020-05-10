@@ -1,0 +1,16 @@
+{
+  "name": "worker",
+  "version": "1.0.0",
+  "description": "takes status update of new document, and starts watermarker",
+  "main": "index.js",
+  "repository": "git@github.com:moonblade/watermark.git",
+  "author": "moonblade",
+  "license": "MIT",
+  "scripts": {
+    "start": "DEBUG=assess* node index.js"
+  },
+  "dependencies": {
+    "@google-cloud/pubsub": "^1.7.2",
+    "axios": "^0.19.2"
+  }
+}
