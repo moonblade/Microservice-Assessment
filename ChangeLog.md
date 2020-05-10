@@ -43,6 +43,9 @@ done:
 
 ### milestone - 1
 minimum viable app with functionality
+
+v1.0
+
 ![v1.0](https://github.com/moonblade/watermark/raw/dev/assets/archv1.0.png)
 
 #### 1.0.6
