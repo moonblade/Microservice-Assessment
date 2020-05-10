@@ -1,10 +1,17 @@
 # Changelog
 
+### milstone 2.0
+![v2.0](https://github.com/moonblade/watermark/raw/dev/assets/archv2.0.png)
+
+todo:
+done:
+- start each service in a seperate docker
+- expose only userInterface api to outside of cluster
+- use docker compose
+
 ### mileston 1.2
 todo:
 add graphql to document service
-run each service on a docker container
-use docker compose to start the containers
 
 done:
 refactor each service into its own independant thing
