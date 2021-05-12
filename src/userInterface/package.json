@@ -14,7 +14,7 @@
     "@grpc/proto-loader": "^0.5.4",
     "axios": "^0.19.2",
     "express": "^4.17.1",
-    "grpc": "^1.24.2",
+    "grpc": "^1.24.9",
     "grpc-promise": "^1.4.0",
     "uuid": "^8.0.0"
   }
