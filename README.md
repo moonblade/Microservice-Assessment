@@ -4,7 +4,7 @@ Was given a freelancing oppurtunity which required experience in Kubernetes, Doc
 
 The core of the project is simple enough. A document is provided by the user, another service takes the document, adds a watermark on the document and then rights it back to the db in an asynchronous manner.
 
-The trick is to make each of these items into its own microservice. So in the final version, there were five microservices. Each microservice was wrapped in a Docker container. This entire assembly was supposed to be be pushed to a kubernetes cluster. But ended up starting the freelancing project, so abandoned it at this point. 
+The trick is to make each of these items into its own microservice. So in the final version, there were five microservices. Each microservice was wrapped in a Docker container. This entire assembly was supposed to be be pushed to a kubernetes cluster in GCP. But ended up starting the freelancing project, so abandoned it at this point. 
 
 Got to learn docker and kubernetes, working with microservices, and grpc and pubsub for communication from this.
 
