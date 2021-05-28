@@ -18,23 +18,9 @@ Got to learn docker and kubernetes, working with microservices, and grpc and pub
 
   This one gives an api interface for the user to interact with the entire service.
 
- -  
-```
-/watermark
-```
-Api to start the watermarking process. Inputs a document, gets a ticket back. Creates a pubsub status of created with ticket number once document is inserted. 
-
- -  
-``` 
-/document 
-```
-Api to get document, in its current state. Inputs a ticket, returns document.
-
- - 
-```
-/status
-```
-Api to get status of watermarking the document given by ticket. Inputs a ticket. Returns completed or not. 
+ - `/watermark` Api to start the watermarking process. Inputs a document, gets a ticket back. Creates a pubsub status of created with ticket number once document is inserted. 
+ - `/document` Api to get document, in its current state. Inputs a ticket, returns document.
+ - `/status` Api to get status of watermarking the document given by ticket. Inputs a ticket. Returns completed or not. 
 
 2. **Document service**
 
